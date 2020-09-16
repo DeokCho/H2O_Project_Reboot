@@ -9,6 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import { Checkbox, FormControlLabel, FormGroup, Box } from '@material-ui/core';
+import Postcode from '../../../../helpers/Postcode';
+import {Modal} from 'react-bootstrap'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +54,7 @@ const UserAdd = () => {
     checkBox2 : false,
     checkBox3 : false,
   })
+  const [show, setShow] = useState(false)
   
   const history = useHistory();
 
@@ -135,6 +138,14 @@ const UserAdd = () => {
     history.push('/admin/hospital')
   }
 
+  const handleShow = () => {
+    setShow(true)
+  }
+
+  const handleClose = () => {
+    setShow(false)
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -192,28 +203,39 @@ const UserAdd = () => {
                   value={tel}
                   onChange={e => setTel(e.target.value)}
                 />
-                <Grid item xs={12}>
-                <TextField
-                  autoComplete="addr"
-                  name="addr"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="addr"
-                  label="병원 주소"
-                  autoFocus
-                  value={addr}
-                  onChange={e => setAddr(e.target.value)}
-                />
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    variant="outlined"
+                    name="addr"
+                    required
+                    fullWidth
+                    id="addr"
+                    label="병원 주소"
+                    autoFocusㅉ
+                    autoComplete="addr"
+                    value={addr}
+                    onChange={e => setAddr(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={4}
+                  container
+                  direction="column"
+                  justify="flex-end"
+                  alignItems="flex-end">
+                  <Button style={{height:55, width:110}} variant="outlined" color="secondary" onClick={handleShow}>
+                    주소검색
+                  </Button>
                 </Grid>
                 <Grid>
                   <FormGroup row>
                     <Box 
+                      variant="outlined"
                       marginRight="Auto"
                       width="100px"
                       name="businessStatus"
                       className={classes.boxCss}
-                      margin-right="10px">{"영업상태"}</Box>
+                      margin-right="20px">{"영업상태"}</Box>
                     <FormControlLabel
                       control={ 
                         <Checkbox
@@ -348,8 +370,6 @@ const UserAdd = () => {
                 onChange={e => setLongitude(e.target.value)}
                 />
               </Grid>
-               
-            </Grid>
 
           <Button
             type="submit"
@@ -376,9 +396,33 @@ const UserAdd = () => {
           </Button>
 
          </Grid>
+         {/* ---------------------- Modal ----------------------------------- */}
+                <Modal 
+                  show={show} 
+                  onHide={handleClose}
+                  size="lg"
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                  scrollable={Boolean(true)}
+                  >
+                <Modal.Header closeButton>
+                  <Modal.Title>등록 병원 정보</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Postcode
+                    setAddr={(addr)=>{setAddr(addr)}}
+                    setClose={(close)=>{setShow(close)}}
+                    />
+                  {/* <BoardTestBody 
+                    hospitalData={hospitalData} 
+                    setClose={(close)=>{setShow(close)}}
+                    /> */}
+                  </Modal.Body>
+              </Modal>
         </form>
       </div>
     </Container>
+    
   );
 }
 export default UserAdd

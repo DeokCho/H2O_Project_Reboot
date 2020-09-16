@@ -343,16 +343,19 @@ const BoardTestView = () => {
               </TableCell>
               <TableCell align="center" style={{width:100}}>카테고리</TableCell>
 
-              <TableCell align="center">
+              <TableCell align="center"
+                style={{minWidth:250}}
+                >
                 <MuiButton
                   onClick={handleSortTitle}
-                  style={{width:"auto"}}>
+                  >
                     제목
                     {sort.title==="Asc" && <ArrowUpwardIcon fontSize="small"/>}
                     {sort.title==="Dsc" && <ArrowDownwardIcon fontSize="small"/>}
                 </MuiButton>
               </TableCell>
-              <TableCell align="center">내용</TableCell>
+              <TableCell align="center"
+              style={{maxWidth:600}}>내용</TableCell>
               <TableCell align="center" style={{width:50}}><MuiButton
                   onClick={handleSortClick}>
                     조회수

@@ -22,7 +22,7 @@ const UsersList = () => {
     <div className={classes.root}>
       <UsersToolbar />
       <div className={classes.content}>
-        <UserTestView/>
+       <UserTestView/>
       </div>
     </div>
   );

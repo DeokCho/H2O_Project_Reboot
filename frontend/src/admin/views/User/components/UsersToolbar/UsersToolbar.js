@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -32,6 +33,31 @@ const useStyles = makeStyles(theme => ({
 
 const UsersToolbar = props => {
   const { className, ...rest } = props;
+  const [userList, setUserList] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [editSearchTerm, setEditSearchTerm] = useState('')
+
+  useEffect(()=>{
+    axios.get(`http://localhost:8080/user/userList`)
+    .then(response => {
+        setUserList(response.data)
+    })
+    .catch(
+        error => {
+            throw (error)
+        }
+    )
+},[]);
+
+console.log(userList)
+const searchTermInput = (e) => {
+  setSearchTerm(e.target.value)
+}
+
+const dynamicSearch = () => {
+  return userList.userName.filter(name => name.toLowerCase().includes(searchTerm.toLowerCase()))
+}
+
 
   const classes = useStyles();
 
@@ -42,9 +68,10 @@ const UsersToolbar = props => {
     >
       
       <div className={classes.row}
-                  style={{fontWeight:"bold", fontSize:"x-large"}}>사용자 관리
+                  style={{fontWeight:"bold", fontSize:"x-large", minWidth:"200"}}>사용자 관리
         <span className={classes.spacer} />
-        
+          <input style={{maxWidth:200, display:'flex', flexWrap:'wrap', alignContent:'center'}} 
+                type='text' value={searchTerm} onChange={searchTermInput} placeholder = '사용자 검색'/>
           <Link to="/admin/UserAdd">
           <Button
             color="primary"

@@ -329,7 +329,7 @@ const UserTestView = () => {
                 </TableCell>
               <TableCell align="center">연락처</TableCell>
               <TableCell align="center">이메일 주소</TableCell>
-              <TableCell>
+              <TableCell align="center">
               <MuiButton
                   onClick={handleSortBirthday}
                   >

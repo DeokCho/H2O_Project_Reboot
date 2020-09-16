@@ -24,8 +24,8 @@ const Topbar = props => {
 
   const classes = useStyles();
 
-  const windowClose = () => {
-    window.close()
+  function windowClose(){
+	  window.close();
   }
   return (
     <AppBar

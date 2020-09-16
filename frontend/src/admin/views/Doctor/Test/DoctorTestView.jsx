@@ -323,7 +323,7 @@ const DoctorTestView = () => {
                 </TableCell>
               <TableCell align="center">전문분야</TableCell>
               <TableCell align="center">진료과목</TableCell>
-              <TableCell>
+              <TableCell align="center">
               <MuiButton
                   onClick={handleSortBirthday}
                   >
